@@ -1,6 +1,0 @@
-@Nudjr_API_HostAddress = http://localhost:5225
-
-GET {{Nudjr_API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
