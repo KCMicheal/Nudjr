@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Nudjr_Api.Infrastructure.StartupExtensions;
 using Nudjr_AppCore.Services.Extensions;
 using Nudjr_Domain.Context;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration Configuration = builder.Configuration;
@@ -18,12 +20,20 @@ builder.Services.AddCors(options =>
 builder.Services.ConfigureDatabaseConnection(Configuration);
 builder.Services.ConfigureAppSettingsBinding(Configuration);
 builder.Services.RegisterAndConfigureSwaggerAuthorizationOptions();
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.ConfigureIdentityProvider(Configuration);
 builder.Services.ConfigureAuthentication(Configuration);
 builder.Services.ConfigureRedisCache(Configuration);
 builder.Services.RegisterServices();
+builder.Services.AddApiVersioning(options =>
+{
+    options.ReportApiVersions = true;
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -39,7 +49,15 @@ using (var sp = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        var descriptions = app.DescribeApiVersions();
+
+        foreach (var description in descriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        }
+    });
 }
 app.UseCors("CorsPolicy");
 

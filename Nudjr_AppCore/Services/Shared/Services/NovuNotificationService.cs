@@ -43,7 +43,6 @@ namespace Nudjr_AppCore.Services.Shared.Services
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.EmailAddress,
-                    Phone = user.PhoneNumber,
                     Avatar = user.ImageURL,
                     SubscriberId = await GenerateSubscriberID(),
                 };

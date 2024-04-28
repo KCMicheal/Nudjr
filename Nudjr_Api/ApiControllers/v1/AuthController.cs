@@ -8,10 +8,12 @@ using Nudjr_Domain.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Asp.Versioning;
 
 namespace Nudjr_Api.ApiControllers.v1
 {
-    [Route("api/v1/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Produces("application/json")]
     public class AuthController : BaseController
