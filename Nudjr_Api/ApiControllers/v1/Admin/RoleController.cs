@@ -9,10 +9,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Asp.Versioning;
 
 namespace Nudjr_Api.ApiControllers.v1.Admin
 {
-    [Route("api/v1/Admin/[controller]")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/Admin/[controller]")]
     [ApiController]
     [Produces("application/json")]
     [Authorize(Roles = "SuperAdmin, Admin")]

@@ -1,4 +1,7 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Asp.Versioning.ApiExplorer;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
 namespace Nudjr_Api.Infrastructure.StartupExtensions
@@ -10,7 +13,6 @@ namespace Nudjr_Api.Infrastructure.StartupExtensions
         {
             services.AddSwaggerGen(x =>
             {
-                x.SwaggerDoc("v1", new OpenApiInfo { Title = "DotNetTribe API", Version = "V1" });
                 OpenApiSecurityRequirement security = new OpenApiSecurityRequirement
                 {
                      {
@@ -46,6 +48,51 @@ namespace Nudjr_Api.Infrastructure.StartupExtensions
             string xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             string filePath = Path.Combine(AppContext.BaseDirectory, xmlFileName);
             return filePath;
+        }
+    }
+
+    public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
+    {
+        private readonly IApiVersionDescriptionProvider _provider;
+
+        public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider)
+        {
+            _provider = provider;
+        }
+
+        public void Configure(SwaggerGenOptions options)
+        {
+            foreach (var description in _provider.ApiVersionDescriptions)
+            {
+                options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
+            }
+        }
+
+        private OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+        {
+            OpenApiInfo info = new OpenApiInfo();
+
+            if (description.GroupName == "v1")
+            {
+                info = new OpenApiInfo
+                {
+                    Title = "Nudjr API",
+                    Version = description.ApiVersion.ToString(),
+                    Description = "This is the Version 1 Of Nudjr that includes Phase 1 features."
+                };
+            }
+
+            if (description.GroupName == "v2")
+            {
+                info = new OpenApiInfo
+                {
+                    Title = "Nudjr API",
+                    Version = description.ApiVersion.ToString(),
+                    Description = "This is the Version 2 Of Nudjr that includes Phase 2 features."
+                };
+            }
+
+            return info;
         }
     }
 }

@@ -142,11 +142,8 @@ namespace Nudjr_AppCore.Services.IdentityServices.Services
                     LastName = model.LastName,
                     EmailAddress = model.EmailAddress,
                     IdentityUserId = applicationUser.Id,
-                    PhoneNumber = applicationUser.PhoneNumber,
                     Username = model.Username,
-                    OtherName = model.OtherName,
                     DateOfBirth = model.DateOfBirth,
-                    Address = model.Address,
                     Nationality = model.Nationality,
                     Gender = model.Gender,
                     PersonType = model.PersonType
@@ -212,11 +209,8 @@ namespace Nudjr_AppCore.Services.IdentityServices.Services
                     LastName = model.LastName,
                     EmailAddress = model.EmailAddress,
                     IdentityUserId = applicationUser.Id,
-                    PhoneNumber = applicationUser.PhoneNumber,
                     Username = model.Username,
-                    OtherName = model.OtherName,
                     DateOfBirth = model.DateOfBirth,
-                    Address = model.Address,
                     Nationality = model.Nationality,
                     Gender = model.Gender,
                     PersonType = model.PersonType

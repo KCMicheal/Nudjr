@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Nudjr_Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nudjr_Domain.Context
 {
@@ -27,5 +22,10 @@ namespace Nudjr_Domain.Context
 
         public DbSet<USER> Users { get; set; }
         public DbSet<NOVUSUBSCRIBER> NovuSubscribers { get; set; }
+        public DbSet<USER_SETTING> UserSettings { get; set; }
+        public DbSet<USER_ACTIVITY_LOG> UserActivities { get; set; }
+        public DbSet<ALARM> Alarms { get; set; }
+        public DbSet<EVENT> Events { get; set; }
+        public DbSet<NUDGE> Nudges { get; set; }
     }
 }
