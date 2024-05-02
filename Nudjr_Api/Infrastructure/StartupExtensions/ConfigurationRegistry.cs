@@ -14,6 +14,8 @@ namespace Nudjr_Api.Infrastructure.StartupExtensions
             services.Configure<RedisConfig>(Configuration.GetSection("RedisConfig"));
             services.Configure<NovuConfig>(Configuration.GetSection("NovuConfig"));
             services.Configure<CloudinaryConfig>(Configuration.GetSection("CloudinaryConfig"));
+            services.Configure<GeminiConfig>(Configuration.GetSection("GeminiConfig"));
+            services.Configure<PromptConfig>(Configuration.GetSection("PromptConfig"));
 
             return services;
         }

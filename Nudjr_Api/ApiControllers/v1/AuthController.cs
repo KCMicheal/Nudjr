@@ -62,7 +62,7 @@ namespace Nudjr_Api.ApiControllers.v1
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Authorize(Roles = "SuperAdmin, Admin")]
+        //[Authorize(Roles = "SuperAdmin, Admin")]
         [HttpPost("Admin/Create")]
         [ProducesResponseType(typeof(ApiResponseModel<Jwt>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorDetails), (int)HttpStatusCode.BadRequest)]
