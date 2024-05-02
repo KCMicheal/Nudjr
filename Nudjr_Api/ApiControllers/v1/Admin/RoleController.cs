@@ -1,19 +1,17 @@
-﻿using Nudjr_AppCore.Services.IdentityServices.Interfaces;
-using Nudjr_AppCore.Services.IdentityServices.Services;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Nudjr_AppCore.Services.IdentityServices.Interfaces;
 using Nudjr_Domain.Enums;
 using Nudjr_Domain.Models;
 using Nudjr_Domain.Models.IdentityModels;
 using Nudjr_Domain.Models.ResposneModels;
 using Nudjr_Domain.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Asp.Versioning;
 
 namespace Nudjr_Api.ApiControllers.v1.Admin
 {
-    [ApiVersion("2.0")]
+    [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/Admin/[controller]")]
     [ApiController]
     [Produces("application/json")]
