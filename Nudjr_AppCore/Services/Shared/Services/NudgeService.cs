@@ -23,22 +23,29 @@ namespace Nudjr_AppCore.Services.Shared.Services
             _promptConfig = promptConfig.Value;
         }
 
-        public async Task<NudgeDto> FetchNudgeFromGemini(NudgeDataModel nudgeDataModel)
+        public async Task<NudgeDto> FetchNudgeFromGeminiAsync(NudgeDataModel nudgeDataModel)
         {
             try
             {
                 string url = string.Format(_geminiConfig.BaseUrl, _geminiConfig.ApiKey);
-                int age = CalculateAge((DateTime)nudgeDataModel.user.DateOfBirth, DateTime.UtcNow);
-                var gender = Gender(nudgeDataModel.user.Gender);
-                string bodyPrompt = string.Format(_promptConfig.Prompt, nudgeDataModel.user.FirstName, nudgeDataModel.user.LastName, age, gender, nudgeDataModel.task,
-                    nudgeDataModel.user.Gender, nudgeDataModel.taskDate.ToShortDateString(), nudgeDataModel.taskDate.ToShortTimeString(), nudgeDataModel.theme);
-                var body = new Nudjr_Domain.Models.ServiceModels.Prompt.Content()
+                int age = CalculateAge((DateTime)nudgeDataModel.User.DateOfBirth, DateTime.UtcNow);
+                var gender = Gender(nudgeDataModel.User.Gender);
+                string bodyPrompt = string.Format(_promptConfig.Prompt, nudgeDataModel.User.FirstName, nudgeDataModel.User.LastName, nudgeDataModel.User.PersonalityType.ToString(),
+                    age, nudgeDataModel.NumberOfNudges, gender.ToLower(), nudgeDataModel.Task, gender.ToLower(), nudgeDataModel.TaskDate.ToShortDateString(),
+                    nudgeDataModel.TaskDate.ToShortTimeString(), nudgeDataModel.Theme);
+                var body = new Nudjr_Domain.Models.ServiceModels.Prompt.PromptRequestModel
                 {
-                    Parts = new List<Nudjr_Domain.Models.ServiceModels.Prompt.Part>()
+                    contents = new List<Nudjr_Domain.Models.ServiceModels.Prompt.Content>
                     {
-                        new Nudjr_Domain.Models.ServiceModels.Prompt.Part()
+                        new Nudjr_Domain.Models.ServiceModels.Prompt.Content
                         {
-                            Text = bodyPrompt
+                            parts = new List<Nudjr_Domain.Models.ServiceModels.Prompt.Part>
+                            {
+                                new Nudjr_Domain.Models.ServiceModels.Prompt.Part
+                                {
+                                    text = bodyPrompt
+                                }
+                            }
                         }
                     }
                 };
@@ -53,12 +60,12 @@ namespace Nudjr_AppCore.Services.Shared.Services
                         CreatedAt = currentDateTime,
                         UpdatedAt = currentDateTime,
                         EntityStatus = EntityStatus.ACTIVE,
-                        UserId = nudgeDataModel.user.Id,
+                        UserId = nudgeDataModel.User.Id,
                         Content = responseMessage.Candidates[0].Content.Parts[0].Text,
-                        Tone = nudgeDataModel.theme.ToString(),
+                        Tone = nudgeDataModel.Theme.ToString(),
                     };
 
-                    nudge = _unitOfWork.GetRepository<NUDGE>().Add(nudge);
+                    _unitOfWork.GetRepository<NUDGE>().Add(nudge);
                     int row = await _unitOfWork.SaveChangesAsync();
                     if (row > 0)
                     {
@@ -67,7 +74,7 @@ namespace Nudjr_AppCore.Services.Shared.Services
                     }
                 }
 
-                return null;
+                return new NudgeDto { };
             }
             catch (Exception ex)
             {

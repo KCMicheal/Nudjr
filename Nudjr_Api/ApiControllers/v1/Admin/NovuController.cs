@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nudjr_AppCore.Services.Shared.Interfaces;
 using Nudjr_Domain.Models;
@@ -8,7 +9,8 @@ using System.Net;
 
 namespace Nudjr_Api.ApiControllers.v1.Admin
 {
-    [Route("api/v1/Admin/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/Admin/[controller]")]
     [ApiController]
     [Produces("application/json")]
     [Authorize(Roles = "SuperAdmin, Admin")]

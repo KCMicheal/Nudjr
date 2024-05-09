@@ -73,6 +73,8 @@ namespace Nudjr_AppCore.Services.Extensions
 
             services.AddTransient<INovuNotificationService, NovuNotificationService>();
             services.AddScoped<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<INudgeService, NudgeService>();
+            services.AddTransient<IAlarmService, AlarmService>();
 
             services.AddHttpClient();
 
