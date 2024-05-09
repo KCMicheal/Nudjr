@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Nudjr_Domain.Models.ServiceModels.Prompt
 {
     public class PromptRequestModel
     {
         [JsonPropertyName("contents")]
-        public List<Content> Contents { get; set; }
+        public List<Content> contents { get; set; }
     }
 
     public class Content
     {
         [JsonPropertyName("parts")]
-        public List<Part> Parts { get; set; }
+        public List<Part> parts { get; set; }
     }
 
     public class Part
     {
-        [JsonPropertyName("Text")]
-        public string Text { get; set; }
+        [JsonPropertyName("text")]
+        public string text { get; set; }
     }
 }

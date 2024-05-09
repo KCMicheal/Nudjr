@@ -5,10 +5,10 @@ namespace Nudjr_Domain.Models.ServiceModels
 {
     public class NudgeDataModel
     {
-        public required USER user { get; set; }
-        public NumberOfNudges numberOfNudges { get; set; }
-        public MotivationalTheme theme { get; set; }
-        public required string task { get; set; }
-        public required DateTime taskDate { get; set; }
+        public USER? User { get; set; }
+        public NumberOfNudges NumberOfNudges { get; set; }
+        public MotivationalTheme Theme { get; set; }
+        public string? Task { get; set; }
+        public DateTime TaskDate { get; set; }
     }
 }

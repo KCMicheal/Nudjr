@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nudjr_Domain.Models.Dtos;
+using Nudjr_Domain.Models.ServiceModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,6 @@ namespace Nudjr_AppCore.Services.Shared.Interfaces
 {
     public interface INudgeService
     {
+        Task<NudgeDto> FetchNudgeFromGeminiAsync(NudgeDataModel nudgeDataModel);
     }
 }
