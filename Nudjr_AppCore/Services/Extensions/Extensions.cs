@@ -10,7 +10,7 @@
 
         public static DateTime ConvertToDate(this long timestamp)
         {
-            DateTime dateTime = DateTimeOffset.FromUnixTimeSeconds(timestamp).DateTime;      
+            DateTime dateTime = DateTimeOffset.FromUnixTimeSeconds(timestamp).DateTime;
             return dateTime;
         }
     }

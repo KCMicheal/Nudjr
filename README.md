@@ -9,7 +9,7 @@ The Nudjr system design.excalidraw file contains the Technical flow and wirefram
 To run the app go to /Nudjr_Api and run the below.
 
 ```
-dotnet run
+dotnet watch run
 ```
 
-The appsettings.Development.json contains the algorithm for fetching personalized notifications or messages and api configs for Gemini.
+The appsettings.Development.json contains the environmental variables fundamental to making calls to the api and configurations for Gemini AI.
