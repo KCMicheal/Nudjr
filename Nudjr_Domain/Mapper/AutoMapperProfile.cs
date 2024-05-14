@@ -12,28 +12,44 @@ namespace Nudjr_Domain.Mapper
                 .ForMember(x => x.Theme, y => y.MapFrom(y => y.Tone))
                 .AfterMap((entity, viewModel) =>
                 {
-                    viewModel.Notifications = GetSortedNofications(entity.Content);
+                    viewModel.Notifications = SplitResponse(entity.Content);
                 });
+
+
+            CreateMap<ALARM, AlarmDto>().
+                AfterMap((entity, viewModel) =>
+            {
+                viewModel.AlarmTimestamp = ConvertToTimestamp(entity.AlarmTimestamp);
+            }).ReverseMap();
+
+            CreateMap<CreateAlarmDto, AlarmDto>();
         }
 
-        private Dictionary<string, string> GetSortedNofications(string text)
+
+        private Dictionary<string, string> SplitResponse(string response)
         {
-            string[] splitInput = text.Split(new string[] { "\n\n " }, StringSplitOptions.None);
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
-            foreach (string s in splitInput)
+            Dictionary<string, string> answers = new Dictionary<string, string>();
+
+            string[] lines = response.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string line in lines)
             {
-                // Find the index of the first colon
-                int colonIndex = s.IndexOf('.');
-
-                // Get the key and value
-                string key = s.Substring(0, colonIndex).Trim();
-                string value = s.Substring(colonIndex + 1).Trim();
-
-                // Add the key and value to the dictionary
-                keyValuePairs.Add(key, value);
+                int dotIndex = line.IndexOf('.');
+                if (dotIndex != -1)
+                {
+                    string answerNumber = line.Substring(0, dotIndex).Trim();
+                    string answerText = line.Substring(dotIndex + 1).Trim();
+                    answers.Add(answerNumber, answerText);
+                }
             }
 
-            return keyValuePairs;
+            return answers;
+        }
+
+        private long ConvertToTimestamp(DateTime dateTime)
+        {
+            long timestamp = (long)(dateTime.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            return timestamp;
         }
     }
 }

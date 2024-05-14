@@ -58,7 +58,7 @@ namespace Nudjr_AppCore.Services.Shared.Services
                 };
 
                 var fetchedNudges = await _nudgeService.FetchNudgeFromGeminiAsync(nudge);
-                var alarmDto = _mapper.Map<AlarmDto>(alarm);
+                var alarmDto = _mapper.Map<AlarmDto>(model);
                 return alarmModel = new ServiceOperationModel<AlarmDto>
                 {
                     Data = alarmDto,
@@ -70,7 +70,7 @@ namespace Nudjr_AppCore.Services.Shared.Services
             return alarmModel = new ServiceOperationModel<AlarmDto>
             {
                 Data = null,
-                SuccessMessage = "Alarm & Nudge Creation Failure",
+                SuccessMessage = "Alarm & Nudge Creation Failed",
                 IsSuccess = false
             };
         }
