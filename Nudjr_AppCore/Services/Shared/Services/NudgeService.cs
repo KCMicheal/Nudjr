@@ -61,7 +61,7 @@ namespace Nudjr_AppCore.Services.Shared.Services
                         UpdatedAt = currentDateTime,
                         EntityStatus = EntityStatus.ACTIVE,
                         UserId = nudgeDataModel.User.Id,
-                        Content = responseMessage.Candidates[0].Content.Parts[0].Text,
+                        Content = responseMessage.Candidates[0].Content.Parts[0].Text ?? null,
                         Tone = nudgeDataModel.Theme.ToString(),
                     };
 

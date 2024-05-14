@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Nudjr_Domain.Models.Dtos
 {
     public class AlarmDto
     {
-        
+        public DateTime AlarmDateTime { get; set; }
+        public long AlarmTimestamp { get; set; }
+        public string? AlarmTitle { get; set; }
+        public string? AlarmMessage { get; set; }
+        public bool IsActive { get; set; }
     }
 
     public class CreateAlarmDto

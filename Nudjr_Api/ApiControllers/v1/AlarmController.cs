@@ -34,7 +34,7 @@ namespace Nudjr_Api.ApiControllers.v1
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("Create")]
-        [ProducesResponseType(typeof(ApiResponseModel<JwtWithRefreshToken>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ApiResponseModel<ServiceOperationModel<AlarmDto>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateAlarm([FromBody] CreateAlarmDto model)
         {
