@@ -55,6 +55,7 @@ namespace Nudjr_AppCore.Services.Shared.Services
                 {
                     var responseMessage = await _httpClientProvider.ParseNudjrApiResponse<PromptResponseModel>(response);
                     DateTime currentDateTime = DateTime.UtcNow;
+                    //TODO: filter out the numbered nudges in the response
                     NUDGE nudge = new NUDGE()
                     {
                         CreatedAt = currentDateTime,
